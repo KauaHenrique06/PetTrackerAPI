@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\RegisterUserRequest;
 use App\Services\AuthService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class AuthController extends Controller
 {
@@ -18,9 +19,20 @@ class AuthController extends Controller
 
     public function index(RegisterUserRequest $request) {
 
-        $user = $this->authService->register($request->validated());
-        
-        return response()->json(['registro' => true, 'user' => $user]);
+        DB::transaction();
 
+        try{
+
+            $user = $this->authService->register($request->validated());
+            DB::commit();
+
+            return response()->json(['registro' => true, 'user' => $user]);
+
+        }catch(\Exception $e){
+
+            DB::rollBack();
+            throw $e;
+            
+        }
     }
 }
