@@ -20,6 +20,9 @@ return new class extends Migration
             $table->char('cpf', 11);
             $table->date('birthday');
 
+            $table->unsignedBigInteger('address_id')->nullable();
+            // $table->foreign('address_id')->references('id')->on('addresses');
+
             $table->rememberToken();
             $table->timestamps();
         });
