@@ -5,10 +5,14 @@ namespace App\Http\Controllers;
 use App\Helpers\ResponseHelper;
 use App\Http\Requests\RegisterUserRequest;
 use App\Services\AuthService;
+use App\Traits\ApiResponser;
 use Illuminate\Support\Facades\DB;
+use Symfony\Component\HttpFoundation\Response;
 
 class AuthController extends Controller
 {
+
+    use ApiResponser;
 
     protected AuthService $authService;
 
@@ -19,9 +23,7 @@ class AuthController extends Controller
     }
 
     public function index(RegisterUserRequest $request) {
-
-        DB::transaction();
-
+        DB::beginTransaction();
         //realiza a tentativa do comando abaixo, caso dê erro irá rodar o catch 
         try{
 
@@ -29,7 +31,7 @@ class AuthController extends Controller
             $user = $this->authService->register($request->validated());
             DB::commit();
 
-            return ResponseHelper::success(false, 'usuário cadastrado com sucesso', null, 200);
+            return $this->successResponse($user, 'usuário cadastrado com sucesso', 200);
 
         }catch(\Exception $e){
 
@@ -37,7 +39,7 @@ class AuthController extends Controller
             DB::rollBack();
 
             //joga o erro na tela
-            return ResponseHelper::error(true, $e->getMessage(), null, 400);
+            return $this->errorResponse(null, $e->getMessage(), Response::HTTP_BAD_REQUEST);
 
         }
     }
