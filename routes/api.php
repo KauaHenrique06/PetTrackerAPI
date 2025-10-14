@@ -12,4 +12,6 @@ Route::prefix('auth')->group(function() {
 
     Route::post('/', [AuthController::class, 'store']);
 
+    Route::post('/login', [AuthController::class, 'login']);
+
 });

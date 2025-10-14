@@ -16,6 +16,13 @@ class User extends Authenticatable
     use HasUuids, HasApiTokens, HasFactory, Notifiable;
 
     /**
+     * Modifica o tipo do id e o auto incremento pois
+     * o uuid não é convencional como o id 
+     */
+    protected $keyType = 'string';
+    public $incrementing = false;
+
+    /**
      * Um usuário vai ter somente um endereço
      * 
      * @return HasOne

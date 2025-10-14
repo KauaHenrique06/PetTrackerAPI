@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Helpers\ResponseHelper;
+use App\Http\Requests\LoginUserRequest;
 use App\Http\Requests\RegisterUserRequest;
 use App\Services\AuthService;
 use App\Traits\ApiResponser;
@@ -46,5 +46,27 @@ class AuthController extends Controller
             return $this->errorResponse(null, $e->getMessage(), Response::HTTP_BAD_REQUEST);
 
         }
+    }
+
+    public function login(LoginUserRequest $request) {
+
+        try {
+
+            //Passa somente os campos de email e password que foram fornecidos para o service
+            $user = $this->authService->login($request->only('email', 'password'));
+
+            if(!$user) {
+                return $this->errorResponse(null, 'credenciais invalidas', Response::HTTP_UNAUTHORIZED);
+            }
+
+            //Passo o token que foi retornado do service chamando a variável que armazena toda a lógica
+            return $this->successResponse($user['token'], 'usuario logado com sucesso', Response::HTTP_OK);
+           
+        } catch(\Exception $e) {
+
+            return $this->errorResponse(null, $e->getMessage(), Response::HTTP_BAD_REQUEST);
+
+        }
+
     }
 }
