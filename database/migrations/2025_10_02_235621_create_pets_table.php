@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('specie');
             $table->string('color');
 
-            $table->unsignedBigInteger('user_id');
+            $table->uuid('user_id');
             $table->foreign('user_id')->references('id')->on('users');
 
             $table->timestamps();
