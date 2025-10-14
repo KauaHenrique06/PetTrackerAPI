@@ -22,7 +22,7 @@ class AuthController extends Controller
         $this->authService = $authService;
     }
 
-    public function index(RegisterUserRequest $request) {
+    public function store(RegisterUserRequest $request) {
         DB::beginTransaction();
         //realiza a tentativa do comando abaixo, caso dê erro irá rodar o catch 
         try{
