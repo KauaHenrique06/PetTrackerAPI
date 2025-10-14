@@ -35,7 +35,7 @@ class AuthController extends Controller
             //Adicionei formatação do CPF para exibicição
             $user['cpf'] = Formatter::formatCpf($user['cpf']);
 
-            return $this->successResponse($user, 'usuário cadastrado com sucesso', 200);
+            return $this->successResponse($user, 'User registered successfully!', Response::HTTP_CREATED);
 
         }catch(\Exception $e){
 
@@ -53,14 +53,14 @@ class AuthController extends Controller
         try {
 
             //Passa somente os campos de email e password que foram fornecidos para o service
-            $user = $this->authService->login($request->only('email', 'password'));
+            $userData = $this->authService->login($request->only('email', 'password'));
 
-            if(!$user) {
-                return $this->errorResponse(null, 'credenciais invalidas', Response::HTTP_UNAUTHORIZED);
+            if(!$userData) {
+                return $this->errorResponse(null, 'Invalid Credentials!', Response::HTTP_UNAUTHORIZED);
             }
 
             //Passo o token que foi retornado do service chamando a variável que armazena toda a lógica
-            return $this->successResponse($user['token'], 'usuario logado com sucesso', Response::HTTP_OK);
+            return $this->successResponse($userData, 'User logged in successfully', Response::HTTP_OK);
            
         } catch(\Exception $e) {
 
