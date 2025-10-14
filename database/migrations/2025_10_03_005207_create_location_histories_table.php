@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('location_histories', function (Blueprint $table) {
-            $table->id();
+            $table->id('id');
             $table->decimal('latitude', 10,8);
             $table->decimal('longitude', 10, 8);
 
