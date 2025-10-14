@@ -6,6 +6,7 @@ use App\Helpers\ResponseHelper;
 use App\Http\Requests\RegisterUserRequest;
 use App\Services\AuthService;
 use App\Traits\ApiResponser;
+use App\Utils\Formatter;
 use Illuminate\Support\Facades\DB;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -30,6 +31,9 @@ class AuthController extends Controller
             //DB::commit() executa o comando para salvar dentro do banco 
             $user = $this->authService->register($request->validated());
             DB::commit();
+            
+            //Adicionei formatação do CPF para exibicição
+            $user['cpf'] = Formatter::formatCpf($user['cpf']);
 
             return $this->successResponse($user, 'usuário cadastrado com sucesso', 200);
 

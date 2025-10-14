@@ -24,13 +24,49 @@ class RegisterUserRequest extends FormRequest
     {
         return [
             
-            'name' => ['required', 'string'],
-            'email' => ['required', 'string'],
-            'password' => ['required', 'string', 'min:6'],
-            'cpf' => ['required', 'string', 'unique:users,cpf', new ValidateCPF()],
-            'birthday' => ['required', 'date']
+            'name' => [
+                'required', 
+                'string'
+            ],
+            'email' => [
+                'required', 
+                'string', 
+                'email', 
+                'unique:users,email', 
+                'max:150'
+            ],
+            'password' => [
+                'required', 
+                'string', 
+                'regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/'
+            ],
+            'cpf' => [
+                'required', 
+                'string', 
+                'unique:users,cpf', 
+                new ValidateCPF()
+            ],
+            'birthday' => [
+                'required', 
+                'date'
+            ]
 
         ];
     }
+
+    /**
+     * Messages in case of validation errors
+     */
+    public function messages(): array
+    {
+        return [
+            'required' => 'The :attribute field is required!',
+            'string' => 'The :attribute field value must be a string!',
+            'email.email' => 'The email value must be an valid email format!',
+            'unique' => 'The :attribute must be unique, this already in use!',
+            'password.regex' => 'The password must have 8 characters and include: a capital letter, a lowercase letter, a number and a special character',
+            'birthday.date' => 'Birthday must be a date'
+        ];
+    } 
 
 }
