@@ -44,7 +44,7 @@ return Application::configure(basePath: dirname(__DIR__))
     $exceptions->render(function (ValidationException $e, Request $request) use ($jsonErrorResponse) {
         if ($request->expectsJson()) {
             return $jsonErrorResponse(
-                'Os dados fornecidos são inválidos.',
+                'The data provided is invalid.',
                 Response::HTTP_UNPROCESSABLE_ENTITY,
                 $e->errors() // O 'data' aqui contém a lista de erros por campo
             );
@@ -55,7 +55,7 @@ return Application::configure(basePath: dirname(__DIR__))
     $exceptions->render(function (AuthenticationException $e, Request $request) use ($jsonErrorResponse) {
         if ($request->expectsJson()) {
             return $jsonErrorResponse(
-                'Não autenticado. É necessário um token de acesso válido.',
+                'Unauthenticated. A valid access token is required.',
                 Response::HTTP_UNAUTHORIZED
             );
         }
@@ -65,7 +65,7 @@ return Application::configure(basePath: dirname(__DIR__))
     $exceptions->render(function (AuthorizationException $e, Request $request) use ($jsonErrorResponse) {
         if ($request->expectsJson()) {
             return $jsonErrorResponse(
-                $e->getMessage() ?: 'Esta ação não é autorizada.',
+                $e->getMessage() ?: 'This action is not authorized.',
                 Response::HTTP_FORBIDDEN
             );
         }
@@ -75,7 +75,7 @@ return Application::configure(basePath: dirname(__DIR__))
     $exceptions->render(function (NotFoundHttpException|ModelNotFoundException $e, Request $request) use ($jsonErrorResponse) {
         if ($request->expectsJson()) {
             return $jsonErrorResponse(
-                'O recurso solicitado não foi encontrado.',
+                'The requested resource was not found.',
                 Response::HTTP_NOT_FOUND
             );
         }
@@ -85,7 +85,7 @@ return Application::configure(basePath: dirname(__DIR__))
     $exceptions->render(function (MethodNotAllowedHttpException $e, Request $request) use ($jsonErrorResponse) {
         if ($request->expectsJson()) {
             return $jsonErrorResponse(
-                'O método HTTP não é permitido para esta rota.',
+                'The specified HTTP method is not allowed for this route.',
                 Response::HTTP_METHOD_NOT_ALLOWED
             );
         }
