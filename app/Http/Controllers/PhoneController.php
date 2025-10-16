@@ -6,7 +6,6 @@ use App\Http\Requests\PhoneRequest;
 use App\Models\User;
 use App\Services\PhoneService;
 use App\Traits\ApiResponser;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Symfony\Component\HttpFoundation\Response;
 

@@ -11,7 +11,7 @@ class AddressRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -23,11 +23,9 @@ class AddressRequest extends FormRequest
     {
         return [
 
-            'cep' => [],
-            'street' => [],
-            'district' => [],
-            'city' => [],
-            'state' => []
+            'cep' => ['required', 'string', 'size:8'],
+            'number' => ['required', 'integer'],
+            // 'user_id' => ['required', 'exists:user,id']
 
         ];
     }

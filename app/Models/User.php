@@ -66,7 +66,8 @@ class User extends Authenticatable
         'password',
         'cpf',
         'birthday',
-        'has_phone'
+        'has_phone',
+        'has_address'
     ];
 
     /**
@@ -90,6 +91,7 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
             'has_phone' => 'boolean',
+            'has_address' => 'boolean'
         ];
     }
 }
