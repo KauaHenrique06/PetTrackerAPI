@@ -12,7 +12,7 @@ Route::get('/user', function (Request $request) {
 
 Route::prefix('auth')->group(function() {
 
-    Route::post('/', [AuthController::class, 'store']);
+    Route::post('/register', [AuthController::class, 'store']);
 
     Route::post('/login', [AuthController::class, 'login']);
 
