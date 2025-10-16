@@ -19,6 +19,8 @@ return new class extends Migration
             $table->string('password');
             $table->char('cpf', 11);
             $table->date('birthday');
+            // $table->boolean('has_address')->default(false);
+            $table->boolean('has_phone')->default(false);
 
             $table->unsignedBigInteger('address_id')->nullable();
             // $table->foreign('address_id')->references('id')->on('addresses');

@@ -38,7 +38,7 @@ class User extends Authenticatable
      * 
      * @return HasMany
      */
-    public function phone() {
+    public function phones() {
 
         return $this->hasMany(Phone::class);
 
@@ -65,7 +65,8 @@ class User extends Authenticatable
         'email',
         'password',
         'cpf',
-        'birthday'
+        'birthday',
+        'has_phone'
     ];
 
     /**
@@ -88,6 +89,7 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'has_phone' => 'boolean',
         ];
     }
 }
