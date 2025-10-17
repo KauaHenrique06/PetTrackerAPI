@@ -1,10 +1,10 @@
 <?php
 
+use App\Http\Controllers\UserController;
 use Illuminate\Http\Client\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 // ============== ROTAS DE USUARIO ==============
 
-Route::get('/me', function (Request $request) {
-    return $request->user();
-})->middleware('auth:sanctum');
+Route::get('/me', [UserController::class, 'me'])->middleware('auth:sanctum');
