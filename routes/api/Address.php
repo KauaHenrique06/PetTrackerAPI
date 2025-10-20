@@ -5,4 +5,4 @@ use Illuminate\Support\Facades\Route;
 
 // ============== ROTAS DE ENDEREÇO ==============
 
-Route::post('/user/{user}', [AddressController::class, 'store']);
+Route::post('/', [AddressController::class, 'store'])->middleware('auth:sanctum');

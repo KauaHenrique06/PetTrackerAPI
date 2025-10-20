@@ -38,7 +38,10 @@ class AddressService {
                 'street' => $cepData['logradouro'] ?? null,
                 'district' => $cepData['bairro'] ?? null,
                 'city' => $cepData['localidade'] ?? null,
-                'state' => $cepData['uf'] ?? null
+                'state' => $cepData['uf'] ?? null,
+                'complement' => $addressData['complement'],
+                'latitude' => 0.0,
+                'longitude' => 0.0
             ]);
 
             //Verificação para mudar o status ma tabela endereço

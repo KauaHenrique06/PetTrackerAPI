@@ -24,7 +24,8 @@ class AddressRequest extends FormRequest
         return [
 
             'cep' => ['required', 'string', 'size:8'],
-            'number' => ['required', 'integer'],
+            'number' => ['required', 'string'],
+            'complement' => ['nullable', 'string']
             // 'user_id' => ['required', 'exists:user,id']
 
         ];

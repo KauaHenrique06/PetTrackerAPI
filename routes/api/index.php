@@ -13,11 +13,11 @@ Route::prefix('users')->name('api.')->group(function () {
 });
 
 // Rotas de endereço
-Route::prefix('address')->name('api.')->group(function () {
+Route::prefix('addresses')->name('api.')->group(function () {
     require __DIR__ .  '/Address.php';
 });
 
 // Rotas de telefone
-Route::prefix('phone')->name('api.')->group(function () {
+Route::prefix('phones')->name('api.')->group(function () {
     require __DIR__ .  '/Phone.php';
 });

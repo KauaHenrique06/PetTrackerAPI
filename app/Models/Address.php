@@ -15,7 +15,10 @@ class Address extends Model
         'street',
         'district',
         'city', 
-        'state'
+        'state',
+        'complement',
+        'latitude',
+        'longitude'
     ];
     
     /**

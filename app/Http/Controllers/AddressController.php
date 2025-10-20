@@ -6,6 +6,7 @@ use App\Http\Requests\AddressRequest;
 use App\Models\User;
 use App\Services\AddressService;
 use App\Traits\ApiResponser;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -19,7 +20,9 @@ class AddressController extends Controller
         $this->addressService = $addressService;
     }
 
-    public function store(AddressRequest $request, User $user) {
+    public function store(AddressRequest $request) {
+
+        $user = Auth::user();
 
         DB::beginTransaction();
 
