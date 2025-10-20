@@ -21,3 +21,8 @@ Route::prefix('addresses')->name('api.')->group(function () {
 Route::prefix('phones')->name('api.')->group(function () {
     require __DIR__ .  '/Phone.php';
 });
+
+// Rotas de pet
+Route::prefix('pets')->name('api')->group(function () {
+    require __DIR__ . '/Pet.php';
+});
