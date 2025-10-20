@@ -5,4 +5,4 @@ use Illuminate\Support\Facades\Route;
 
 // ============== ROTAS DE TELEFONE ==============
 
-Route::post('/user/{user}/phone', [PhoneController::class, 'store']);
+Route::post('/', [PhoneController::class, 'store']);

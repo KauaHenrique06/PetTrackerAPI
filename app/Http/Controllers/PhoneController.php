@@ -6,6 +6,7 @@ use App\Http\Requests\PhoneRequest;
 use App\Models\User;
 use App\Services\PhoneService;
 use App\Traits\ApiResponser;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -21,7 +22,9 @@ class PhoneController extends Controller
         $this->phoneService = $phoneService;
     }
 
-    public function store(PhoneRequest $request, User $user) {
+    public function store(PhoneRequest $request) {
+
+        $user = Auth::user();
 
         DB::beginTransaction();
 
