@@ -24,6 +24,19 @@ class PetService {
 
         });
        
+    }
+
+    public function update(Array $petData, int $petId) {
+
+        // Procura o pet pelo ID
+        $pet = Pet::findOrFail($petId);
+
+        // Vai mudar somente os dados que forem passados na requisição
+        $pet->fill($petData);
+
+        $pet->save();
+
+        return $pet;
 
     }
 

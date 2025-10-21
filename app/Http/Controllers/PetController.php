@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CreatePetRequest;
+use App\Http\Requests\UpdatePetRequest;
 use App\Services\PetService;
 use App\Traits\ApiResponser;
 use Illuminate\Support\Facades\Auth;
@@ -33,6 +34,28 @@ class PetController extends Controller
             DB::commit();
 
             return $this->successResponse($pet, 'Pet registered succesfully!', Response::HTTP_OK);
+
+        } catch(\Exception $e) {
+
+            DB::rollBack();
+
+            return $this->errorResponse(null, $e->getMessage(), Response::HTTP_BAD_REQUEST);
+
+        }
+
+    }
+
+    public function update(UpdatePetRequest $request, int $petId) {
+
+        DB::beginTransaction();
+
+        try {
+
+            $pet = $this->petService->update($request->validated(), $petId);
+
+            DB::commit();
+
+            return $this->successResponse($pet, 'Data updated succesfully!', Response::HTTP_OK);
 
         } catch(\Exception $e) {
 
