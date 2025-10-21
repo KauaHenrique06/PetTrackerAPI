@@ -3,7 +3,7 @@
 namespace App\Services;
 use App\Models\User;
 use App\Utils\Formatter;
-use Illuminate\Http\Client\Request;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
@@ -50,6 +50,7 @@ class AuthService {
     
     public function logout(Request $request) {
         //
+        Auth::user()->tokens()->delete();
     }
 
 }

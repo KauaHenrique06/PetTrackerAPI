@@ -8,6 +8,7 @@ use App\Services\AuthService;
 use App\Traits\ApiResponser;
 use App\Utils\Formatter;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class AuthController extends Controller
@@ -70,7 +71,9 @@ class AuthController extends Controller
 
     }
 
-    public function logout() {
+    public function logout(Request $request) {
         //
+        $this->authService->logout($request);
+        return $this->successResponse(null, 'User logged out successfully', Response::HTTP_OK);
     }
 }
