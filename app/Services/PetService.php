@@ -4,7 +4,9 @@ namespace App\Services;
 
 use App\Models\Pet;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
 class PetService {
 
@@ -28,8 +30,15 @@ class PetService {
 
     public function update(Array $petData, int $petId) {
 
+        $logged_user = Auth::user();
+
         // Procura o pet pelo ID
         $pet = Pet::findOrFail($petId);
+
+        // Verifica a permisão do usuario para alterar esse pet
+        if($pet->user_id != $logged_user->id){
+            throw new AccessDeniedHttpException("You don't have permission to update this pet data!");
+        }
 
         // Vai mudar somente os dados que forem passados na requisição
         $pet->fill($petData);

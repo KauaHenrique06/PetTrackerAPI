@@ -6,9 +6,11 @@ use App\Http\Requests\CreatePetRequest;
 use App\Http\Requests\UpdatePetRequest;
 use App\Services\PetService;
 use App\Traits\ApiResponser;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
 class PetController extends Controller
 {
@@ -56,6 +58,14 @@ class PetController extends Controller
             DB::commit();
 
             return $this->successResponse($pet, 'Data updated succesfully!', Response::HTTP_OK);
+
+        } catch (ModelNotFoundException $e){
+
+            return $this->errorResponse(null, $e->getMessage(), Response::HTTP_NOT_FOUND);
+
+        } catch(AccessDeniedHttpException $e) {
+
+            return $this->errorResponse(null, $e->getMessage(), Response::HTTP_FORBIDDEN);
 
         } catch(\Exception $e) {
 
