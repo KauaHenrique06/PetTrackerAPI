@@ -8,3 +8,5 @@ use Illuminate\Support\Facades\Route;
 // ============== ROTAS DE USUARIO ==============
 
 Route::get('/me', [UserController::class, 'me'])->middleware('auth:sanctum');
+
+Route::post('/update', [UserController::class, 'update'])->middleware('auth:sanctum');
