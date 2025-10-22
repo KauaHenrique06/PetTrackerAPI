@@ -77,4 +77,26 @@ class PetController extends Controller
 
     }
 
+    public function destroy($id) {
+
+        DB::beginTransaction();
+
+        try {
+
+            $pet = $this->petService->destroy($id);
+
+            DB::commit();
+
+            return $this->successResponse($pet, 'Data deleted successfully!', Response::HTTP_OK);
+
+        } catch(\Exception $e) {
+
+            DB::rollBack();
+
+            return $this->errorResponse(null, $e->getMessage(), Response::HTTP_BAD_REQUEST);
+
+        }
+
+    }
+
 }

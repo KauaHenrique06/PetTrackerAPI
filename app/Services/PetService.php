@@ -6,6 +6,7 @@ use App\Models\Pet;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Symfony\Component\Finder\Exception\AccessDeniedException;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
 class PetService {
@@ -46,6 +47,20 @@ class PetService {
         $pet->save();
 
         return $pet;
+
+    }
+
+    public function destroy($petId) {
+
+        $logged_user = Auth::user();
+
+        $pet = Pet::findOrFail($petId);
+
+        if($pet->user_id != $logged_user->id) {
+            throw new AccessDeniedException("You don't have permission to delete this pet data!");
+        }
+
+        return $pet->delete();
 
     }
 
