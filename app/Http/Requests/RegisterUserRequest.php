@@ -49,6 +49,12 @@ class RegisterUserRequest extends FormRequest
             'birthday' => [
                 'required', 
                 'date'
+            ],
+            'image' => [
+                'nullable',
+                'image',
+                'mimes:jpeg,png,jpg,gif,svg',
+                'max:2048'
             ]
 
         ];
@@ -65,7 +71,8 @@ class RegisterUserRequest extends FormRequest
             'email.email' => 'The email value must be an valid email format!',
             'unique' => 'The :attribute must be unique, this already in use!',
             'password.regex' => 'The password must have 8 characters and include: a capital letter, a lowercase letter, a number and a special character',
-            'birthday.date' => 'Birthday must be a date'
+            'birthday.date' => 'Birthday must be a date',
+            'image' => 'The :attribute must be an image file.'
         ];
     } 
 

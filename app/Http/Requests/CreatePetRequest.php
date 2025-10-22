@@ -23,10 +23,29 @@ class CreatePetRequest extends FormRequest
     {
         return [
             
-            'name' => ['required', 'string', 'max:50'],
-            'birthday' => ['required', 'date'],
-            'specie' => ['required', 'string'],
-            'color' => ['required', 'string']
+            'name' => [
+                'required', 
+                'string', 
+                'max:50'
+            ],
+            'birthday' => [
+                'required', 
+                'date'
+            ],
+            'image' => [
+                'nullable',
+                'image',
+                'mimes:jpeg,png,jpg,gif,svg',
+                'max:2048'
+            ],
+            'specie' => [
+                'required', 
+                'string'
+            ],
+            'color' => [
+                'required', 
+                'string'
+            ]
 
         ];
     }

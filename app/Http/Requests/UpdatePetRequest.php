@@ -23,10 +23,29 @@ class UpdatePetRequest extends FormRequest
     {
         return [
             
-            'name' => ['sometimes', 'string', 'max:50'],
-            'birthday' => ['sometimes', 'date'],
-            'specie' => ['sometimes', 'string'],
-            'color' => ['sometimes', 'string']
+            'name' => [
+                'sometimes', 
+                'string', 
+                'max:50'
+            ],
+            'birthday' => [
+                'sometimes', 
+                'date'
+            ],
+            'image' => [
+                'sometimes',
+                'image',
+                'mimes:jpeg,png,jpg,gif,svg',
+                'max:2048'
+            ],
+            'specie' => [
+                'sometimes', 
+                'string'
+            ],
+            'color' => [
+                'sometimes', 
+                'string'
+            ]
 
         ];
     }

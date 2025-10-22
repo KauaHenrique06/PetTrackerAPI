@@ -6,10 +6,18 @@ use App\Utils\Formatter;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Http\UploadedFile;
 
 class AuthService {
 
-    public function register(Array $userData) {
+    public function register(Array $userData, ?UploadedFile $imageFile) {
+
+        $imagePath = null;
+
+        if($imageFile && $imageFile->isValid()) {
+            $imagePath = $imageFile->store('user_image', 'public');
+        }
 
         //Adicionei limpeza do CPF ao salvar
         $user = User::create([
@@ -18,7 +26,8 @@ class AuthService {
             'email' => $userData['email'],
             'password' => $userData['password'],
             'cpf' => Formatter::cleanCpf($userData['cpf']),
-            'birthday' => $userData['birthday']
+            'birthday' => $userData['birthday'],
+            'image' => $imagePath
 
         ]);
 

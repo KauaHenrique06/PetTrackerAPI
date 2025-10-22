@@ -66,6 +66,7 @@ class User extends Authenticatable
         'password',
         'cpf',
         'birthday',
+        'image',
         'has_phone',
         'has_address'
     ];

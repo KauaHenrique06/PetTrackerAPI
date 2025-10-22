@@ -55,6 +55,7 @@ class Pet extends Model
         'name',
         'specie', 
         'birthday',
+        'image',
         'color', 
         'user_id'
     ];

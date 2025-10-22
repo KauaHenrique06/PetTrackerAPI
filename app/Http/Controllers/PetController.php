@@ -9,6 +9,7 @@ use App\Traits\ApiResponser;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Storage;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
@@ -31,7 +32,11 @@ class PetController extends Controller
 
         try {
 
-            $pet = $this->petService->store($user, $request->validated());
+            $pet = $this->petService->store($user, $request->validated(), $request->file('image'));
+
+            if($pet->image) {
+                $pet->image = Storage::url($pet->image);
+            }
 
             DB::commit();
 

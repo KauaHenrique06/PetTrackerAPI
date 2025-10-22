@@ -9,6 +9,7 @@ use App\Traits\ApiResponser;
 use App\Utils\Formatter;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+use Storage;
 use Symfony\Component\HttpFoundation\Response;
 
 class AuthController extends Controller
@@ -30,7 +31,12 @@ class AuthController extends Controller
         try{
 
             //DB::commit() executa o comando para salvar dentro do banco 
-            $user = $this->authService->register($request->validated());
+            $user = $this->authService->register($request->validated(), $request->file('image'));
+
+            if($user->image) {
+                $user->image = Storage::url($user->image);
+            }
+
             DB::commit();
             
             //Adicionei formatação do CPF para exibicição

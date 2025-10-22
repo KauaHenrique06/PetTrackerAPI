@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\Pet;
 use App\Models\User;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Symfony\Component\Finder\Exception\AccessDeniedException;
@@ -11,13 +12,20 @@ use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
 class PetService {
 
-    public function store(User $user, Array $petData) {
+    public function store(User $user, Array $petData, ?UploadedFile $imageFile) {
 
-        return DB::transaction(function () use ($user, $petData) { 
+        return DB::transaction(function () use ($user, $petData, $imageFile) { 
+
+            $imagePath = null;
+
+            if($imageFile && $imageFile->isValid()) {
+                $imagePath = $imageFile->store('image', 'public');
+            }
 
             $pet = $user->pet()->create([
                 'name' => $petData['name'],
                 'birthday' => $petData['birthday'],
+                'image' => $imagePath,
                 'specie' => $petData['specie'],
                 'color' => $petData['color'],
                 'user_id' => $user->id
