@@ -5,12 +5,12 @@ namespace App\Http\Controllers;
 use App\Http\Requests\UpdateUserRequest;
 use App\Services\UserService;
 use App\Traits\ApiResponser;
-use DB;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
-use Storage;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
 class UserController extends Controller
@@ -24,7 +24,11 @@ class UserController extends Controller
     }
 
     public function me(){
-        return $this->successResponse(Auth::user(), "Token verified!");
+        $user = Auth::user();
+
+        $user->load(['address', 'phones']);
+
+        return $this->successResponse($user, "Token verified!");
     }
 
     public function update(UpdateUserRequest $request) {

@@ -9,7 +9,7 @@ use App\Traits\ApiResponser;
 use App\Utils\Formatter;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
-use Storage;
+use Illuminate\Support\Facades\Storage;
 use Symfony\Component\HttpFoundation\Response;
 
 class AuthController extends Controller

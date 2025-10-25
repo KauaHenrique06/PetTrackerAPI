@@ -38,7 +38,9 @@ class AuthService {
     public function login(Array $userData) {
 
         //Busca na tabela do banco um dado exatamento ao o que foi fornecido no request
-        $user = User::where('email', $userData['email'])->first();
+        $user = User::where('email', $userData['email'])
+            ->with(['address', 'phones'])
+            ->first();
 
         /**
          * Verifica se o email existe, caso exista verifica a senha
