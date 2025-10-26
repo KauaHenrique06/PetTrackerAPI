@@ -26,8 +26,6 @@ class UserController extends Controller
     public function me(){
         $user = Auth::user();
 
-        $user->load(['address', 'phones']);
-
         return $this->successResponse($user, "Token verified!");
     }
 

@@ -44,4 +44,10 @@ class AddressController extends Controller
 
     }
 
+    public function addressByLoggedUser(){
+        $user = Auth::user();
+
+        return $this->successResponse($this->addressService->addressByLoggedUser($user), "Address reached with success!", Response::HTTP_OK);
+    }
+
 }

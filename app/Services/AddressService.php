@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Models\Address;
 use App\Models\User;
 use Exception;
 use Illuminate\Support\Facades\DB;
@@ -53,6 +54,12 @@ class AddressService {
 
         });
 
+    }
+
+    public function addressByLoggedUser(User $user){
+        $user_address = Address::where('user_id', $user->id)->first();
+
+        return $user_address;
     }
 
 }

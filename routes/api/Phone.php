@@ -6,3 +6,4 @@ use Illuminate\Support\Facades\Route;
 // ============== ROTAS DE TELEFONE ==============
 
 Route::post('/', [PhoneController::class, 'store'])->middleware('auth:sanctum');
+Route::get('/', [PhoneController::class, 'index'])->middleware('auth:sanctum');

@@ -46,4 +46,10 @@ class PhoneController extends Controller
 
     }
 
+    public function index(){
+        $user = Auth::user();
+
+        return $this->successResponse($this->phoneService->index($user), "Phone list reached!", Response::HTTP_OK);
+    }
+
 }

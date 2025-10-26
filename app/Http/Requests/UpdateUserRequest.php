@@ -33,13 +33,15 @@ class UpdateUserRequest extends FormRequest
                 'sometimes', 
                 'string', 
                 'email', 
+                'unique:users,email',
                 'max:150'
             ],
-            'password' => [
-                'sometimes', 
-                'string', 
-                'regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/'
-            ],
+            // COMENTEI ISSO PQ VAI TER UM ENDPOINT SEPARADO PRA ISSO
+            //'password' => [
+                //'sometimes', 
+                //'string', 
+                //'regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/'
+            //],
             'cpf' => [
                 'sometimes', 
                 'string', 

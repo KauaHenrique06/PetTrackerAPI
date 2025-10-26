@@ -28,4 +28,10 @@ class PhoneService {
         });
     }
 
+    public function index(User $user){
+        $user_phone_list = Phone::where('user_id', $user->id)->get();
+
+        return $user_phone_list;
+    }
+
 }
