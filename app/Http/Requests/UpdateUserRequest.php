@@ -33,7 +33,7 @@ class UpdateUserRequest extends FormRequest
                 'sometimes', 
                 'string', 
                 'email', 
-                'unique:users,email',
+                Rule::unique('users', 'email')->ignore($this->user()->id),
                 'max:150'
             ],
             // COMENTEI ISSO PQ VAI TER UM ENDPOINT SEPARADO PRA ISSO
@@ -48,10 +48,11 @@ class UpdateUserRequest extends FormRequest
                 Rule::unique('users')->ignore($this->user()->id), 
                 new ValidateCPF()
             ],
-            'birthday' => [
-                'sometimes', 
-                'date'
-            ],
+            // MUITO TRAMPO ATUALIZAR ISSO NO FRONT
+            //'birthday' => [
+                //'sometimes', 
+                //'date'
+            //],
             'image' => [
                 'sometimes',
                 'image',
@@ -59,6 +60,29 @@ class UpdateUserRequest extends FormRequest
                 'max:2048'
             ]
 
+        ];
+    }
+
+    public function messages(): array
+    {
+        return [
+            // Name Messages
+            'name.string' => 'The name must be a valid text string.',
+
+            // Email Messages
+            'email.string' => 'The email must be a valid text string.',
+            'email.email' => 'Please provide a valid email address.',
+            'email.unique' => 'This email address is already in use.',
+            'email.max' => 'The email address must not be longer than 150 characters.',
+
+            // CPF Messages
+            'cpf.string' => 'The CPF must be a valid text string.',
+            'cpf.unique' => 'This CPF is already registered.',
+            
+            // Image Messages
+            'image.image' => 'The uploaded file must be an image.',
+            'image.mimes' => 'The image must be a file of type: jpeg, png, jpg, gif, or svg.',
+            'image.max' => 'The image must not be larger than 2MB.',
         ];
     }
 }

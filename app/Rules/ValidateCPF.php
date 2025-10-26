@@ -17,12 +17,12 @@ class ValidateCPF implements ValidationRule
         $cpf = preg_replace( '/[^0-9]/is', '', $value );
 
         if (strlen($cpf) != 11) {
-            $fail('O campo :attribute não é um CPF válido.');
+            $fail('The :attribute value is not a valid CPF, minimum characters: 11');
             return;
         }
 
         if (preg_match('/(\d)\1{10}/', $cpf)) {
-            $fail('O campo :attribute não é um CPF válido.');
+            $fail('The :attribute value is not a valid CPF. all charecters are the same');
             return;
         }
 
@@ -32,7 +32,7 @@ class ValidateCPF implements ValidationRule
             }
             $d = ((10 * $d) % 11) % 10;
             if ($cpf[$c] != $d) {
-                $fail('O campo :attribute não é um CPF válido.');
+                $fail('The :attribute value is not a valid CPF. The verifing digits are not matching');
                 return;
             }
         }
