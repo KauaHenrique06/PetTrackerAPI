@@ -51,4 +51,13 @@ class Pet extends Model
 
     }
 
+    protected $fillable = [
+        'name',
+        'specie', 
+        'birthday',
+        'image',
+        'color', 
+        'user_id'
+    ];
+
 }

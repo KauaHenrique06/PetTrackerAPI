@@ -6,6 +6,20 @@ use Illuminate\Database\Eloquent\Model;
 
 class Address extends Model
 {
+
+    protected $fillable = [
+
+        'user_id',
+        'cep',
+        'number',
+        'street',
+        'district',
+        'city', 
+        'state',
+        'complement',
+        'latitude',
+        'longitude'
+    ];
     
     /**
      * Um usuário contém um endereço

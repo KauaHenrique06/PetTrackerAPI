@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('district');
             $table->string('city');
             $table->string('state');
+            $table->string('complement');
             $table->decimal('latitude', 10,8);
             $table->decimal('longitude', 10, 8);
 

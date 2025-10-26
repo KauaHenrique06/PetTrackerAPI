@@ -16,6 +16,13 @@ class User extends Authenticatable
     use HasUuids, HasApiTokens, HasFactory, Notifiable;
 
     /**
+     * Modifica o tipo do id e o auto incremento pois
+     * o uuid não é convencional como o id 
+     */
+    protected $keyType = 'string';
+    public $incrementing = false;
+
+    /**
      * Um usuário vai ter somente um endereço
      * 
      * @return HasOne
@@ -31,7 +38,7 @@ class User extends Authenticatable
      * 
      * @return HasMany
      */
-    public function phone() {
+    public function phones() {
 
         return $this->hasMany(Phone::class);
 
@@ -58,7 +65,10 @@ class User extends Authenticatable
         'email',
         'password',
         'cpf',
-        'birthday'
+        'birthday',
+        'image',
+        'has_phone',
+        'has_address'
     ];
 
     /**
@@ -81,6 +91,8 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'has_phone' => 'boolean',
+            'has_address' => 'boolean'
         ];
     }
 }
