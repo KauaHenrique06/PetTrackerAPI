@@ -56,6 +56,22 @@ class AuthService {
         ];
 
     }
+
+    public function loggedInPasswordChange(Array $data){
+        $user = Auth::user();
+
+        if($data['new_password'] != $data['new_password_confirmation']){
+            throw new \Exception('New password doesnt match with confirmation!');
+        }
+
+        if(!Hash::check($data['old_password'], $user->password)){
+            throw new \Exception("Your actual password doesnt match!");
+        }
+
+        $user->password = $data['new_password'];
+
+        $user->save();
+    }
     
     public function logout(Request $request) {
         //
