@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\LoggedInChangePasswordRequest;
 use App\Http\Requests\LoginUserRequest;
 use App\Http\Requests\RegisterUserRequest;
 use App\Services\AuthService;
@@ -10,6 +11,7 @@ use App\Utils\Formatter;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Mail;
 use Symfony\Component\HttpFoundation\Response;
 
 class AuthController extends Controller
@@ -75,6 +77,20 @@ class AuthController extends Controller
 
         }
 
+    }
+
+    public function loggedInPasswordChange(LoggedInChangePasswordRequest $request){
+        try{
+
+            $this->authService->loggedInPasswordChange($request->validated());
+
+            return $this->successResponse(null, "Password changed with success", Response::HTTP_OK);
+        
+        }catch(\exception $e){
+
+            return $this->errorResponse(null, $e->getMessage(), Response::HTTP_BAD_REQUEST);
+        
+        }
     }
 
     public function logout(Request $request) {

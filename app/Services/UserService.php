@@ -24,13 +24,10 @@ class UserService{
             $userData['image'] = $imagePath;
         }
 
-        // Verifica se a senha foi fornecida para atualização
-        if(isset($userData['password'])) {
-            $userData['password'] = Hash::make($userData['password']);
-        }
-
         // Atualiza os dados do usuário
         $user->update($userData);
+
+        $user->refresh();
 
         return $user;
     }

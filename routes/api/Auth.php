@@ -8,3 +8,4 @@ use Illuminate\Support\Facades\Route;
 Route::post('/register', [AuthController::class, 'store']);
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');
+Route::patch('/change-password', [AuthController::class, 'loggedInPasswordChange'])->middleware('auth:sanctum');

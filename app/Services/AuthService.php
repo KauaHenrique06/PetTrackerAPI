@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\UploadedFile;
+use Mail;
 
 class AuthService {
 
@@ -30,6 +31,8 @@ class AuthService {
             'image' => $imagePath
 
         ]);
+
+        Mail::to($user->email)->send(new \App\Mail\AccountCreated($user));
 
         return $user;
 
@@ -55,6 +58,22 @@ class AuthService {
             'token' => $token
         ];
 
+    }
+
+    public function loggedInPasswordChange(Array $data){
+        $user = Auth::user();
+
+        if($data['new_password'] != $data['new_password_confirmation']){
+            throw new \Exception('New password doesnt match with confirmation!');
+        }
+
+        if(!Hash::check($data['old_password'], $user->password)){
+            throw new \Exception("Your actual password doesnt match!");
+        }
+
+        $user->password = $data['new_password'];
+
+        $user->save();
     }
     
     public function logout(Request $request) {
