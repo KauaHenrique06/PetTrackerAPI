@@ -7,3 +7,4 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('/', [PhoneController::class, 'store'])->middleware('auth:sanctum');
 Route::get('/', [PhoneController::class, 'index'])->middleware('auth:sanctum');
+Route::put('/update-phones', [PhoneController::class, 'update'])->middleware('auth:sanctum');

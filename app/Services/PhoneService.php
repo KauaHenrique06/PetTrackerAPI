@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\Phone;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class PhoneService {
@@ -34,4 +35,17 @@ class PhoneService {
         return $user_phone_list;
     }
 
+    public function update(Array $data){
+        $phone_list = $data['phones'];
+
+        $logged_user = Auth::user();
+
+        foreach($phone_list as $phone_item){
+            $phone = $logged_user->phones()
+                ->where('id', $phone_item['id'])
+                ->update(['number' => $phone_item['number']]);
+        }
+
+        return $logged_user->phones();
+    }
 }
