@@ -11,6 +11,7 @@ use App\Utils\Formatter;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Mail;
 use Symfony\Component\HttpFoundation\Response;
 
 class AuthController extends Controller

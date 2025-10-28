@@ -1,0 +1,1 @@
+Olá {{ $name }}, sua conta foi criada com sucesso no PetTracker!
