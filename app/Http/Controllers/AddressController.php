@@ -61,7 +61,7 @@ class AddressController extends Controller
             return $this->successResponse($new_address, 'Address Updated with success!', Response::HTTP_OK);
         }catch(\Exception $e){
             DB::rollBack();
-            $this->errorResponse(null, $e->getMessage(), Response::HTTP_BAD_REQUEST);
+            return $this->errorResponse(null, $e->getMessage(), Response::HTTP_BAD_REQUEST);
         }
     }
 
