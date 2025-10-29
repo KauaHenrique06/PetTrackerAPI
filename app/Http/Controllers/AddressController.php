@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\AddressRequest;
+use App\Http\Requests\UpdateAddressRequest;
+use App\Models\Address;
 use App\Models\User;
 use App\Services\AddressService;
 use App\Traits\ApiResponser;
@@ -48,6 +50,19 @@ class AddressController extends Controller
         $user = Auth::user();
 
         return $this->successResponse($this->addressService->addressByLoggedUser($user), "Address reached with success!", Response::HTTP_OK);
+    }
+
+    public function update(Address $address, UpdateAddressRequest $request){
+        DB::beginTransaction();
+        try{
+            $new_address = $this->addressService->update($address, $request->validated());
+
+            DB::commit();
+            return $this->successResponse($new_address, 'Address Updated with success!', Response::HTTP_OK);
+        }catch(\Exception $e){
+            DB::rollBack();
+            $this->errorResponse(null, $e->getMessage(), Response::HTTP_BAD_REQUEST);
+        }
     }
 
 }

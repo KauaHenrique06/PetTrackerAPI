@@ -12,20 +12,27 @@ class UpdatePhoneRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        // Garante que o usuário está logado
+        return Auth::check();
     }
 
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
+     * @return array
      */
     public function rules(): array
     {
+        $userId = $this->user()->getKey(); 
+
         return [
             'phones' => ['required', 'array'],
-            'phones.*.id' => ['required', 'integer', 'exists:phones,id,user_id' . Auth::id()],
-            'phones.*.number' => ['required', 'string', 'min:10', 'max:20']
+            'phones.*.id' => [
+                'required',
+                'integer', // Mantenha 'string' se o Zod/useEffect estiver enviando string
+                'exists:phones,id,user_id,' . $userId 
+            ],
+            'phones.*.number' => ['required', 'string', 'min:10', 'max:20'],
         ];
     }
 }

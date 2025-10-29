@@ -7,3 +7,4 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('/', [AddressController::class, 'store'])->middleware('auth:sanctum');
 Route::get('/', [AddressController::class, 'addressByLoggedUser'])->middleware('auth:sanctum');
+Route::put('/{address}', [AddressController::class, 'update'])->middleware('auth:sanctum');

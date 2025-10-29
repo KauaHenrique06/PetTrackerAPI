@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Models\Address;
 use App\Models\User;
 use Exception;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
 
@@ -60,6 +61,38 @@ class AddressService {
         $user_address = Address::where('user_id', $user->id)->first();
 
         return $user_address;
+    }
+
+    public function update(Address $address, Array $newData){
+        $logged_user = Auth::user();
+
+        if($address->user_id != $logged_user->id){
+            throw new \Exception('You cannot update someone address!');
+        }
+
+        $response = Http::get("https://viacep.com.br/ws/{$newData['cep']}/json/");
+
+        if($response->failed() || isset($response['erro'])) {
+            throw new \Exception('Invalid CEP');
+        }
+ 
+        $cepData = $response->json();
+        
+        $dataToUpdate = [
+                'cep' => $newData['cep'],
+                'number' => $newData['number'],
+                'street' => $cepData['logradouro'] ?? null,
+                'district' => $cepData['bairro'] ?? null,
+                'city' => $cepData['localidade'] ?? null,
+                'state' => $cepData['uf'] ?? null,
+                'complement' => $newData['complement'],
+                'latitude' => 0.0,
+                'longitude' => 0.0
+        ];
+
+        $address->update($dataToUpdate);
+
+        return $address;
     }
 
 }
