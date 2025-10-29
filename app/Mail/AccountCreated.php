@@ -30,7 +30,7 @@ class AccountCreated extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Conta criada com sucesso!',
+            subject: 'Conta criada com sucesso no PetTracker!!',
         );
     }
 
