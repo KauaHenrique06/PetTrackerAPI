@@ -18,6 +18,21 @@ return new class extends Migration
             $table->string('specie');
             $table->string('color');
 
+            $table->enum('sex', ['male', 'female']);
+
+            $table->enum('size', ['small', 'medium', 'large']);
+
+            $table->enum('status', ['safe', 'deceased', 'lost'])->default('safe');
+
+            $table->string('breed', 100);
+
+            $table->decimal('weight', 5, 2);
+
+            $table->boolean('is_neutred');
+
+            $table->string('image')->nullable();
+
+
             $table->uuid('user_id');
             $table->foreign('user_id')->references('id')->on('users');
 

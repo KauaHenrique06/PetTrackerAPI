@@ -3,6 +3,10 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Pet extends Model
 {
@@ -12,7 +16,7 @@ class Pet extends Model
      * 
      * @return BelongsTo
      */
-    public function user() {
+    public function user(): BelongsTo {
 
         return $this->belongsTo(User::class);
 
@@ -23,7 +27,7 @@ class Pet extends Model
      * 
      * @return BelongsToMany
      */
-    public function vaccine() {
+    public function vaccines(): BelongsToMany {
 
         return $this->belongsToMany(Vaccine::class);
 
@@ -34,7 +38,7 @@ class Pet extends Model
      * 
      * @return HasMany
      */
-    public function petObservation() {
+    public function petObservations(): HasMany{
 
         return $this->hasMany(PetObservation::class);
 
@@ -53,10 +57,16 @@ class Pet extends Model
 
     protected $fillable = [
         'name',
+        'sex',
         'specie', 
+        'breed',
+        'size',
+        'weight',
+        'is_neutred',
         'birthday',
         'image',
-        'color', 
+        'color',
+        'status', 
         'user_id'
     ];
 

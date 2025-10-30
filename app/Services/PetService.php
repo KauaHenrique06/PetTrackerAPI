@@ -24,10 +24,16 @@ class PetService {
 
             $pet = $user->pet()->create([
                 'name' => $petData['name'],
+                'sex' => $petData['sex'],
+                'specie' => $petData['specie'],
+                'breed' => $petData['breed'],
+                'size' => $petData['size'],
+                'weight' => $petData['weight'],
+                'is_neutred' => $petData['is_neutred'],
                 'birthday' => $petData['birthday'],
                 'image' => $imagePath,
-                'specie' => $petData['specie'],
                 'color' => $petData['color'],
+                'status' => $petData['status'],
                 'user_id' => $user->id
             ]);
 
