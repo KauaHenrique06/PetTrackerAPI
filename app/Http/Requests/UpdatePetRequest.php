@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UpdatePetRequest extends FormRequest
 {
@@ -23,29 +24,17 @@ class UpdatePetRequest extends FormRequest
     {
         return [
             
-            'name' => [
-                'sometimes', 
-                'string', 
-                'max:50'
-            ],
-            'birthday' => [
-                'sometimes', 
-                'date'
-            ],
-            'image' => [
-                'sometimes',
-                'image',
-                'mimes:jpeg,png,jpg,gif,svg',
-                'max:2048'
-            ],
-            'specie' => [
-                'sometimes', 
-                'string'
-            ],
-            'color' => [
-                'sometimes', 
-                'string'
-            ]
+            'name' => ['sometimes', 'string', 'max:255'],
+            'sex' => ['sometimes', Rule::in(['male', 'female'])],
+            'specie' => ['sometimes', Rule::in(['dog', 'cat', 'other'])],
+            'size' => ['sometimes', Rule::in(['small', 'medium', 'large'])],
+            'status' => ['sometimes', Rule::in(['safe', 'deceased', 'lost'])],
+            'breed' => ['sometimes', 'string', 'max:100'],
+            'weight' => ['sometimes', 'numeric', 'min:0'], 
+            'is_neutred' => ['sometimes', 'boolean'], 
+            'birthday' => ['sometimes', 'date', 'before_or_equal:today'],
+            'image' => ['nullable', 'image', 'mimes:jpg,jpeg,png', 'max:2048'],
+            'color' => ['sometimes', 'string', 'max:50'],
 
         ];
     }

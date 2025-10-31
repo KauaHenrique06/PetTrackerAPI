@@ -78,4 +78,34 @@ class PetService {
 
     }
 
+    public function index() {
+
+        $logged_user = Auth::user();
+
+        if($logged_user == null) {
+            throw new AccessDeniedException("You don't have permission to view this pet data!");
+        }
+
+        $pet = Pet::where('user_id', $logged_user->id)->get();
+
+        return $pet;
+
+    }
+
+    public function show($petId) {
+        
+        $logged_user = Auth::user();
+
+        // $pet = Pet::findOrFail($petId);
+
+        if($logged_user == null) {
+            throw new AccessDeniedException("You don't have permission to view this pet data!");
+        } 
+
+        $pet = Pet::where('user_id', $logged_user->id)->findOrFail($petId);
+
+        return $pet;
+
+    }
+
 }

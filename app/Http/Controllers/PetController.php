@@ -104,4 +104,39 @@ class PetController extends Controller
 
     }
 
+    public function index() {
+
+        DB::beginTransaction();
+
+        try {
+
+            $pet = $this->petService->index();
+
+            return $this->successResponse($pet, 'All registered pets!', Response::HTTP_OK);
+
+        } catch(\Exception $e ) {
+
+            return $this->errorResponse(null, $e->getMessage(), Response::HTTP_BAD_REQUEST);
+
+        }
+
+    }
+
+    public function show($id) {
+        
+        DB::beginTransaction();
+
+        try {
+
+            $pet = $this->petService->show($id);
+
+            return $this->successResponse($pet, 'Pet informations!!', Response::HTTP_OK);
+
+        } catch(\Exception $e ) {
+
+            return $this->errorResponse(null, $e->getMessage(), Response::HTTP_BAD_REQUEST);
+
+        }
+
+    }        
 }
