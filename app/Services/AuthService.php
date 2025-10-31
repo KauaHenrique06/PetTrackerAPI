@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Mail;
+use App\Notifications\AccountCreated;
 
 class AuthService {
 
@@ -32,7 +33,7 @@ class AuthService {
 
         ]);
 
-        Mail::to($user->email)->send(new \App\Mail\AccountCreated($user));
+        $user->notify(new AccountCreated($user));
 
         return $user;
 

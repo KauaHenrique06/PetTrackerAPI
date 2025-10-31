@@ -23,6 +23,14 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware): void {
         // Middleware padrão de CORS do Laravel
         $middleware->append(HandleCors::class);
+
+        $middleware->validateCsrfTokens(except: [
+            'forgot-password',
+            'reset-password',
+            'login',
+            'register',
+            'logout'
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
 
