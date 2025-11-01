@@ -19,7 +19,7 @@ class AddressService {
              * Faz uma requisição do tipo GET para a api referenciada,
              * insere o cep que foi enviado no request e faz a busca 
              */
-            $response = Http::get("https://viacep.com.br/ws/{$addressData['cep']}/json/");
+            $response = Http::get("https://cep.awesomeapi.com.br/json/{$addressData['cep']}");
 
             /**
              * Verifica se houve algum erro na requisição e
@@ -37,13 +37,13 @@ class AddressService {
                 'user_id' => $user->id,
                 'cep' => $addressData['cep'],
                 'number' => $addressData['number'],
-                'street' => $cepData['logradouro'] ?? null,
-                'district' => $cepData['bairro'] ?? null,
-                'city' => $cepData['localidade'] ?? null,
-                'state' => $cepData['uf'] ?? null,
+                'street' => $cepData['address'] ?? null,
+                'district' => $cepData['district'] ?? null,
+                'city' => $cepData['city'] ?? null,
+                'state' => $cepData['state'] ?? null,
                 'complement' => $addressData['complement'],
-                'latitude' => 0.0,
-                'longitude' => 0.0
+                'latitude' => $cepData['lat'] ?? null,
+                'longitude' => $cepData['lng'] ?? null
             ]);
 
             //Verificação para mudar o status ma tabela endereço
@@ -70,7 +70,7 @@ class AddressService {
             throw new \Exception('You cannot update someone address!');
         }
 
-        $response = Http::get("https://viacep.com.br/ws/{$newData['cep']}/json/");
+        $response = Http::get("https://cep.awesomeapi.com.br/json/{$newData['cep']}");
 
         if($response->failed() || isset($response['erro'])) {
             throw new \Exception('Invalid CEP');
@@ -81,13 +81,13 @@ class AddressService {
         $dataToUpdate = [
                 'cep' => $newData['cep'],
                 'number' => $newData['number'],
-                'street' => $cepData['logradouro'] ?? null,
-                'district' => $cepData['bairro'] ?? null,
-                'city' => $cepData['localidade'] ?? null,
-                'state' => $cepData['uf'] ?? null,
+                'street' => $cepData['address'] ?? null,
+                'district' => $cepData['district'] ?? null,
+                'city' => $cepData['city'] ?? null,
+                'state' => $cepData['state'] ?? null,
                 'complement' => $newData['complement'],
-                'latitude' => 0.0,
-                'longitude' => 0.0
+                'latitude' => $cepData['lat'] ?? null,
+                'longitude' => $cepData['lng'] ?? null
         ];
 
         $address->update($dataToUpdate);

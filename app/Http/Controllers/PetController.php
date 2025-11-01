@@ -112,7 +112,7 @@ class PetController extends Controller
 
             $pet = $this->petService->index();
 
-            return $this->successResponse($pet, 'All registered pets!', Response::HTTP_OK);
+            return $this->successResponse($pet, 'All pets finded!', Response::HTTP_OK);
 
         } catch(\Exception $e ) {
 

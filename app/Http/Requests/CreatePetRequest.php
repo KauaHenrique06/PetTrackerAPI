@@ -25,7 +25,7 @@ class CreatePetRequest extends FormRequest
     public function rules(): array
     {
         return [
-           'name' => ['required', 'string', 'max:255'],
+            'name' => ['required', 'string', 'max:255'],
             'sex' => ['required', Rule::in(['male', 'female'])],
             'specie' => ['required', Rule::in(['dog', 'cat', 'other'])],
             'size' => ['required', Rule::in(['small', 'medium', 'large'])],
