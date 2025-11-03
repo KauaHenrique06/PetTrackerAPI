@@ -59,11 +59,31 @@ class PetObservationService {
     }
 
     public function index() {
-        //
+
+        $logged_user = Auth::user();
+
+        if($logged_user == null) {
+            throw new AccessDeniedHttpException("You must be logged for view this observation!");
+        } 
+
+        $petObs = PetObservation::all();
+
+        return $petObs;
+
     }
 
     public function show(int $petObsId) {
-        //
+    
+        $logged_user = Auth::user();
+
+        if($logged_user == null) {
+            throw new AccessDeniedHttpException("You must be logged for view this observation!");
+        } 
+
+        $petObs = PetObservation::findOrFail($petObsId);
+
+        return $petObs;
+
     }
 
 }

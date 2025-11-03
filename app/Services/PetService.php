@@ -96,8 +96,6 @@ class PetService {
         
         $logged_user = Auth::user();
 
-        // $pet = Pet::findOrFail($petId);
-
         if($logged_user == null) {
             throw new AccessDeniedException("You don't have permission to view this pet data!");
         } 

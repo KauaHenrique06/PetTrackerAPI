@@ -9,6 +9,6 @@ Route::put('/{petObsId}', [PetObservationsController::class, 'update'])->middlew
 
 Route::delete('/{petObsId}', [PetObservationsController::class, 'destroy'])->middleware('auth:sanctum');
 
-// Route::get('/', [PetObservationsController::class, 'index'])->middleware('auth:sanctum');
+Route::get('/', [PetObservationsController::class, 'index'])->middleware('auth:sanctum');
 
-// Route::get('/{petId}', [PetObservationsController::class, 'show'])->middleware('auth:sanctum');
+Route::get('/{petObsId}', [PetObservationsController::class, 'show'])->middleware('auth:sanctum');

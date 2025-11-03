@@ -130,7 +130,7 @@ class PetController extends Controller
 
             $pet = $this->petService->show($id);
 
-            return $this->successResponse($pet, 'Pet informations!!', Response::HTTP_OK);
+            return $this->successResponse($pet, 'Pet informations!', Response::HTTP_OK);
 
         } catch(\Exception $e ) {
 

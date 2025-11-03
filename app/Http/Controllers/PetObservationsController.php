@@ -86,4 +86,40 @@ class PetObservationsController extends Controller
 
     }
 
+    public function index() {
+
+        DB::beginTransaction();
+
+        try {
+
+            $petObs = $this->petObservation->index();
+
+            return $this->successResponse($petObs, 'All pets finded!', Response::HTTP_OK);
+
+        } catch(\Exception $e) {
+
+            return $this->errorResponse(null, $e->getMessage(), Response::HTTP_BAD_REQUEST);
+
+        }
+
+    }
+
+    public function show(int $petObsId) {
+
+        DB::beginTransaction();
+
+        try {
+
+            $petObs = $this->petObservation->show($petObsId);
+
+            return $this->successResponse($petObs, "Observation with id = $petObsId finded!", Response::HTTP_OK);
+
+        } catch(\Exception $e) {
+
+            return $this->errorResponse(null, $e->getMessage(), Response::HTTP_BAD_REQUEST);
+
+        }
+
+    }
+
 }
