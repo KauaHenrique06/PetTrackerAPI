@@ -25,7 +25,7 @@ class PetService {
             $pet = $user->pet()->create([
                 'name' => $petData['name'],
                 'sex' => $petData['sex'],
-                'specie' => $petData['specie'],
+                'specie_id' => $petData['specie_id'],
                 'breed' => $petData['breed'],
                 'size' => $petData['size'],
                 'weight' => $petData['weight'],

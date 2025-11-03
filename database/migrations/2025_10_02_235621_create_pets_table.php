@@ -15,7 +15,9 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->date('birthday');
-            $table->string('specie');
+            
+            $table->foreignId('specie_id')->constrained('species')->onDelete('cascade');
+
             $table->string('color');
 
             $table->enum('sex', ['male', 'female']);

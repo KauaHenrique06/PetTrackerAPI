@@ -55,10 +55,24 @@ class Pet extends Model
 
     }
 
+    /**
+     * Um pet pertence a uma espécie
+     * @return BelongsTo
+     */
+    public function specie(): BelongsTo {
+        return $this->belongsTo(Specie::class);
+    }
+
+    /**
+     * Relacionamentos que devem ser carregador automaticamente
+     * @var array
+     */
+    protected $with = ['specie'];
+
     protected $fillable = [
         'name',
         'sex',
-        'specie', 
+        'specie_id', 
         'breed',
         'size',
         'weight',

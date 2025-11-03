@@ -27,7 +27,7 @@ class CreatePetRequest extends FormRequest
         return [
             'name' => ['required', 'string', 'max:255'],
             'sex' => ['required', Rule::in(['male', 'female'])],
-            'specie' => ['required', Rule::in(['dog', 'cat', 'other'])],
+            'specie_id' => ['required', 'integer', Rule::exists('species', 'id')],
             'size' => ['required', Rule::in(['small', 'medium', 'large'])],
             'status' => ['required', Rule::in(['safe', 'deceased', 'lost'])],
             'breed' => ['required', 'string', 'max:100'],
@@ -44,7 +44,6 @@ class CreatePetRequest extends FormRequest
         return [
             'name.required' => 'The name field is required.',
             'sex.required' => 'The sex field is required.',
-            'specie.required' => 'The species field is required.',
             'size.required' => 'The size field is required.',
             'status.required' => 'The status field is required.',
             'breed.required' => 'The breed field is required.',
@@ -62,7 +61,6 @@ class CreatePetRequest extends FormRequest
             'color.max' => 'The color may not be greater than 50 characters.',
 
             'sex.in' => 'The selected sex is invalid. (Values: male, female)',
-            'specie.in' => 'The selected species is invalid. (Values: dog, cat, other)',
             'size.in' => 'The selected size is invalid. (Values: small, medium, large)',
             'status.in' => 'The selected status is invalid. (Values: safe, deceased, lost)',
 
@@ -77,6 +75,10 @@ class CreatePetRequest extends FormRequest
             'image.image' => 'The uploaded file must be a valid image.',
             'image.mimes' => 'The image must be a file of type: jpg, jpeg, png.',
             'image.max' => 'The image may not be greater than 2048 kilobytes (2 MB).',
+
+            'specie_id.required' => 'The species field is required.',
+            'specie_id.integer' => 'The species ID must be a number.',
+            'specie_id.exists' => 'The selected species is invalid.',
         ];
     }
 }

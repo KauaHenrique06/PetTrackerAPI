@@ -13,8 +13,9 @@ return new class extends Migration
     {
         Schema::create('vaccines', function (Blueprint $table) {
             $table->id();
-            $table->string('type');
-            $table->string('fabricant');
+            $table->string('disease_name');
+            $table->string('target_species');
+            $table->integer('doses');
             $table->integer('duration');
 
             $table->timestamps();
