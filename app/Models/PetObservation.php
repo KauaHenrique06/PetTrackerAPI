@@ -11,9 +11,9 @@ class PetObservation extends Model
 
     protected $fillable = [
         'description',
-        'user_id'
+        'pet_id'
     ];
-    
+
     /**
      * A observação pertence a um pet
      * 
