@@ -15,16 +15,15 @@ return new class extends Migration
             $table->id();
             $table->string("name");
             $table->string("type");
+            $table->string("treatment_type");
             $table->string("dosage_form");
-            $table->number("dosing_interval");
-            $table->string("interval_unit");
+            $table->integer("dosing_interval")->nullable();
+            $table->string("interval_unit")->nullable();
             $table->date("start_date");
-            $table->boolean("is_active");
             $table->date("end_date")->nullable();
             $table->string("description")->nullable();
-            $table->date("due_date")->nullable();
+            $table->unsignedBigInteger('pet_id');
             $table->foreign('pet_id')->references('id')->on('pets');
-            $table->timestamps();
             $table->timestamps();
         });
     }

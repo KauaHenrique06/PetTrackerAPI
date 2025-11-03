@@ -26,3 +26,7 @@ Route::prefix('phones')->name('api.')->group(function () {
 Route::prefix('pets')->name('api')->group(function () {
     require __DIR__ . '/Pet.php';
 });
+
+Route::prefix('pet-medications')->name('api.')->group(function () {
+    require __DIR__ . '/PetMedications.php';
+});

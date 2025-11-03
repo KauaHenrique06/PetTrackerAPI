@@ -19,6 +19,7 @@ return new class extends Migration
             $table->date("resolved_date")->nullable();
             $table->date("diagnosis_status")->nullable();
             $table->string("clinical_notes")->nullable();
+            $table->unsignedBigInteger('pet_id');
             $table->foreign('pet_id')->references('id')->on('pets');
             $table->timestamps();
         });
