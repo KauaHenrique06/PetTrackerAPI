@@ -32,4 +32,9 @@ class PetDiseasesService
             ->where('is_chronic', false)->get();
     }
 
+    public function updatePetDisease(PetDiseases $petDiseases, Array $data){
+        $petDiseases->update($data);
+
+        return $petDiseases;
+    }
 }
