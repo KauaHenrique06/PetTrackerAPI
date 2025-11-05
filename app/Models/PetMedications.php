@@ -46,4 +46,35 @@ class PetMedications extends Model
             }
         );
     }
+
+    /**
+     * Scope para retornar apenas os tratamentos ativos.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeActive($query)
+    {
+        $now = Carbon::now();
+
+        return $query->where('start_date', '<=', $now)
+                     ->where(function ($q) use ($now) {
+                         // Onde a data de fim é nula (contínuo)
+                         $q->whereNull('end_date')
+                           // OU a data de fim ainda não passou
+                           ->orWhere('end_date', '>=', $now);
+                     });
+    }
+
+    /**
+     * Scope para retornar apenas os tratamentos inativos.
+     * (Oposto do 'active')
+     */
+    public function scopeInactive($query)
+    {
+        $now = Carbon::now();
+
+        return $query->where('start_date', '>', $now) // 1. Nem começou
+                     ->orWhere('end_date', '<', $now);  // 2. Ou já terminou
+    }
 }

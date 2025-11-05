@@ -17,7 +17,7 @@ return new class extends Migration
             $table->boolean("is_chronic");
             $table->date("diagnosis_date");
             $table->date("resolved_date")->nullable();
-            $table->date("diagnosis_status")->nullable();
+            $table->string("diagnosis_status")->nullable();
             $table->string("clinical_notes")->nullable();
             $table->unsignedBigInteger('pet_id');
             $table->foreign('pet_id')->references('id')->on('pets');

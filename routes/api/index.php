@@ -34,3 +34,7 @@ Route::prefix('pet-medications')->name('api.')->group(function () {
 Route::prefix('pet-observations')->name('api.')->group(function() {
     require __DIR__ . '/PetObservations.php';
 });
+
+Route::prefix('pet-diseases')->name('api.')->group(function() {
+    require __DIR__ . '/PetDiseases.php';
+});
