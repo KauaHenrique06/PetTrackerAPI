@@ -57,6 +57,17 @@ class User extends Authenticatable
     }
 
     /**
+     * Um usuário pode ter várias vacinas
+     * 
+     * @return HasMany
+     */
+    public function vaccines() {
+
+        return $this->hasMany(Vaccine::class);
+    }
+
+
+    /**
      * The attributes that are mass assignable.
      *
      * @var list<string>

@@ -17,4 +17,22 @@ class Vaccine extends Model
         return $this->belongsToMany(Pet::class);
 
     }
+
+    /**
+     * Um usuário pode ter várias vacinas
+     * 
+     * @return HasMany
+     */
+    public function user() {
+
+        return $this->hasMany(User::class);
+
+    }
+
+    protected $fillable = [
+        'disease_name',
+        'target_species',
+        'doses',
+        'duration'
+    ];
 }
