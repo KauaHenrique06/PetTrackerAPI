@@ -76,11 +76,25 @@ class PetMedicationService
         }
     }
 
-    public function removeMedication(int $medication_id){
-        return PetMedications::delete($medication_id);
+    public function removeMedication(PetMedications $petMedications){
+        $petOwner = $petMedications->pet->user;
+        $loggedUser = Auth::user();
+
+        if($petOwner->id != $loggedUser->id){
+            throw new \Exception('You cannot update someone pet medication!');
+        }
+        
+        return $petMedications->delete();
     }
 
     public function updatePetMedication(PetMedications $petMedications, Array $newData){
+        $petOwner = $petMedications->pet->user;
+        $loggedUser = Auth::user();
+
+        if($petOwner->id != $loggedUser->id){
+            throw new \Exception('You cannot delete someone pet medication!');
+        }
+
         $petMedications->update($newData);
 
         return $petMedications;

@@ -7,3 +7,4 @@ Route::post('/', [PetDiseasesController::class, 'store'])->middleware('auth:sanc
 Route::get('/chronic/{pet}', [PetDiseasesController::class, 'indexChronicDiseases']);
 Route::get('/normal/{pet}', [PetDiseasesController::class, 'indexNormalDiseases']);
 Route::patch('/{petDiseases}', [PetDiseasesController::class, 'updatePetDisease'])->middleware('auth:sanctum');
+Route::delete('/{petDiseases}', [PetDiseasesController::class, 'removePetDisease'])->middleware('auth:sanctum');

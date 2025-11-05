@@ -8,3 +8,4 @@ Route::get('/continuous/{pet}', [PetMedicationsController::class, 'indexContinuo
 Route::get('/periodic/{pet}', [PetMedicationsController::class, 'indexPeriodicTreatments']);
 Route::get('/unique/{pet}', [PetMedicationsController::class, 'indexUniqueDoseTreatments']);
 Route::patch('/{petMedications}', [PetMedicationsController::class, 'updatePetMedications'])->middleware('auth:sanctum');
+Route::delete('/{petMedications}', [PetMedicationsController::class, 'removePetMedications'])->middleware('auth:sanctum');

@@ -52,4 +52,16 @@ class PetDiseasesController extends Controller
             return $this->errorResponse(null, $e->getMessage(), Response::HTTP_BAD_REQUEST);
         }
     }
+
+    public function removePetDisease(PetDiseases $petDiseases){
+        DB::beginTransaction();
+        try{
+            $this->petDiseasesService->removePetDisease($petDiseases);
+            DB::commit();
+            return $this->successResponse(null, "Pet disease removed with success");
+        }catch(\Exception $e){
+            DB::rollBack();
+            return $this->errorResponse(null, $e->getMessage(), Response::HTTP_BAD_REQUEST);
+        }
+    }
 }

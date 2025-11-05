@@ -33,8 +33,25 @@ class PetDiseasesService
     }
 
     public function updatePetDisease(PetDiseases $petDiseases, Array $data){
+        $petOwner = $petDiseases->pet->user;
+        $loggedUser = Auth::user();
+
+        if($petOwner->id != $loggedUser->id){
+            throw new \Exception('You cannot update someone pet disease');
+        }
+
         $petDiseases->update($data);
 
         return $petDiseases;
+    }
+
+    public function removePetDisease(PetDiseases $petDiseases){
+        $petOwner = $petDiseases->pet->user;
+        $loggedUser = Auth::user();
+
+        if($petOwner->id != $loggedUser->id){
+            throw new \Exception('You cannot delete someone pet disease');
+        }
+        return $petDiseases->delete();
     }
 }
