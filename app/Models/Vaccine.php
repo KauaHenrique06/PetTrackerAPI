@@ -8,13 +8,13 @@ class Vaccine extends Model
 {
 
     /**
-     * Um pet pode ter varias vacinas
+     * Uma vacina pode ser aplicada em vários pets
      * 
      * @return BelongsToMany
      */
-    public function pet() {
+    public function pets() {
 
-        return $this->belongsToMany(Pet::class);
+        return $this->belongsToMany(Pet::class, 'pet_vaccine')->withPivot('application_date', 'next_dose_date')->withTimestamps();
 
     }
 

@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('pet_vaccine', function (Blueprint $table) {
             $table->id();
             $table->date('application_date');
+            $table->date('next_dose_date')->nullable();
 
             $table->unsignedBigInteger('pet_id');
             $table->foreign('pet_id')->references('id')->on('pets');
