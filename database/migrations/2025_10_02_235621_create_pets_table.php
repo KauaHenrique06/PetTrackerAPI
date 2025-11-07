@@ -34,7 +34,6 @@ return new class extends Migration
 
             $table->string('image')->nullable();
 
-
             $table->uuid('user_id');
             $table->foreign('user_id')->references('id')->on('users');
 
