@@ -88,7 +88,7 @@ class PetService {
 
         $pet = Pet::where('user_id', $logged_user->id)->get();
 
-        return $pet;
+        return $pet->load('collar');
 
     }
 
@@ -102,7 +102,7 @@ class PetService {
 
         $pet = Pet::where('user_id', $logged_user->id)->findOrFail($petId);
 
-        return $pet;
+        return $pet->load('collar');
 
     }
 

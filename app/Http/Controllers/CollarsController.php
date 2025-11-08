@@ -39,4 +39,24 @@ class CollarsController extends Controller
             return $this->errorResponse(null, $e->getMessage(), Response::HTTP_BAD_REQUEST);
         }
     }
+
+    public function removeAssociationPetCollar(Pet $pet, Collar $collar){
+        DB::beginTransaction();
+        try{
+            $this->collarService->desassociatePetToCollar($collar, $pet);
+            DB::commit();
+
+            return $this->successResponse(null, "Association removed with success!", Response::HTTP_OK);
+        }catch(\Exception $e){
+            DB::rollBack();
+
+            return $this->errorResponse(null, $e->getMessage(), Response::HTTP_BAD_REQUEST);
+        }
+    }
+
+    public function findPetByCollarId(Collar $collar){
+        $collar = $this->collarService->findPetByCollarId($collar);
+
+        return $collar;
+    }
 }

@@ -14,13 +14,11 @@ class AddressService {
     public function store(User $user, Array $addressData) {
 
         return DB::transaction(function () use ($user, $addressData) {
-
             /**
              * Faz uma requisição do tipo GET para a api referenciada,
              * insere o cep que foi enviado no request e faz a busca 
              */
-            $response = Http::get("https://cep.awesomeapi.com.br/json/{$addressData['cep']}");
-
+            $response = Http::get("https://cep.awesomeapi.com.br/json/{$addressData['cep']}?token=34cc96d33c05c78edf6fb6a3b4820b7f0dc683c0291065db686959e4f33d4b77");
             /**
              * Verifica se houve algum erro na requisição e
              * quando o cep inserido não for encontrado retornatá o 'erro'
@@ -70,7 +68,7 @@ class AddressService {
             throw new \Exception('You cannot update someone address!');
         }
 
-        $response = Http::get("https://cep.awesomeapi.com.br/json/{$newData['cep']}");
+        $response = Http::get("https://cep.awesomeapi.com.br/json/{$newData['cep']}?token=34cc96d33c05c78edf6fb6a3b4820b7f0dc683c0291065db686959e4f33d4b77");
 
         if($response->failed() || isset($response['erro'])) {
             throw new \Exception('Invalid CEP');
