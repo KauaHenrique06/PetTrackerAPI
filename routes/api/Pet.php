@@ -14,5 +14,5 @@ Route::delete('/{petId}', [PetController::class, 'destroy'])->middleware('auth:s
 
 Route::get('/', [PetController::class, 'index'])->middleware('auth:sanctum');
 
-Route::get('/{petId}', [PetController::class, 'show'])->middleware('auth:sanctum');
+Route::get('/{petId}', [PetController::class, 'show']);
 

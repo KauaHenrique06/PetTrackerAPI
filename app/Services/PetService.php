@@ -93,14 +93,8 @@ class PetService {
     }
 
     public function show($petId) {
-        
-        $logged_user = Auth::user();
 
-        if($logged_user == null) {
-            throw new AccessDeniedException("You don't have permission to view this pet data!");
-        } 
-
-        $pet = Pet::where('user_id', $logged_user->id)->findOrFail($petId);
+        $pet = Pet::findOrFail($petId);
 
         return $pet->load('collar');
 

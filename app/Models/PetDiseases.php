@@ -10,7 +10,7 @@ class PetDiseases extends Model
         'name',
         'is_chronic',
         'diagnosis_date',
-        'resolved_data',
+        'resolved_date',
         'diagnosis_status',
         'clinical_notes',
         'pet_id'
