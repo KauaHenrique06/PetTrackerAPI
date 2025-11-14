@@ -11,13 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('collars', function (Blueprint $table) {
-            $table->uuid('id')->primary();
-
-            $table->unsignedBigInteger('pet_id')->nullable();
-            $table->foreign('pet_id')->references('id')->on('pets');
-
-            $table->timestamps();
+        Schema::table('pets', function (Blueprint $table) {
+            $table->string('collar_id')->nullable();
+            $table->foreign('collar_id')->references('id')->on('collars');
         });
     }
 
@@ -26,6 +22,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('collars');
+        Schema::table('pets', function (Blueprint $table) {
+            //
+        });
     }
 };

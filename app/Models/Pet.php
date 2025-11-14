@@ -81,7 +81,8 @@ class Pet extends Model
         'image',
         'color',
         'status', 
-        'user_id'
+        'user_id',
+        'collar_id'
     ];
 
 }

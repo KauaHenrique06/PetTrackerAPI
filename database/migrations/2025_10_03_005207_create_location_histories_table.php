@@ -16,8 +16,11 @@ return new class extends Migration
             $table->decimal('latitude', 10,8);
             $table->decimal('longitude', 10, 8);
 
-            $table->unsignedBigInteger('collar_id');
+            $table->uuid('collar_id');
             $table->foreign('collar_id')->references('id')->on('collars');
+
+            $table->unsignedBigInteger('pet_id');
+            $table->foreign('pet_id')->references('id')->on('pets');
 
             $table->timestamps();
         });
