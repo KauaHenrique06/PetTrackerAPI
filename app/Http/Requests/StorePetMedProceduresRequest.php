@@ -24,7 +24,7 @@ class StorePetMedProceduresRequest extends FormRequest
     {
         return [
        
-            'type' => ['required', 'string', Rule::in(['veterinary consultation', 'exams', 'sterilization', 'surgery'])],
+            'type' => ['required', 'string', Rule::in(['veterinary consultation', 'exams', 'sterilization', 'surgery', 'castration'])],
             'description' => ['required', 'string'],
             'start_date' => ['required', 'date', 'date_format:Y-m-d'],
             'end_date' => ['nullable', 'date', 'date_format:Y-m-d', 'after_or_equal:start_date']

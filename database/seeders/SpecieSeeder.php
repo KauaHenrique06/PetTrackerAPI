@@ -11,8 +11,8 @@ class SpecieSeeder extends Seeder
     {
         Specie::query()->delete();
 
-        Specie::create(['name' => 'Cão']);
-        Specie::create(['name' => 'Gato']);
-        Specie::create(['name' => 'Coelho']);
+        Specie::create(['name' => 'dog']);
+        Specie::create(['name' => 'cat']);
+        Specie::create(['name' => 'other']);
     }
 }

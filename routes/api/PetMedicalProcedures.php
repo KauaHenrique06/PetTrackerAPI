@@ -9,6 +9,6 @@ Route::put('/{petMedId}', [PetMedProceduresController::class, 'update'])->middle
 
 Route::delete('/{petMedId}', [PetMedProceduresController::class, 'destroy'])->middleware('auth:sanctum');
 
-Route::get('/', [PetMedProceduresController::class, 'index'])->middleware('auth:sanctum');
+Route::get('/{pet}', [PetMedProceduresController::class, 'index']);
 
-Route::get('/{petMedId}', [PetMedProceduresController::class, 'show'])->middleware('auth:sanctum');
+Route::get('/{petMedId}', [PetMedProceduresController::class, 'show']);

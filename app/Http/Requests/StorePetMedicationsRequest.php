@@ -34,7 +34,6 @@ class StorePetMedicationsRequest extends FormRequest
                 'date',
                 'after_or_equal:start_date',
                 Rule::requiredIf($this->treatment_type === 'periodic' || $this->treatment_type === 'unique'),
-                Rule::prohibitedIf($this->treatment_type === 'continuous'),
             ],
 
             'dosing_interval' => [
@@ -48,7 +47,7 @@ class StorePetMedicationsRequest extends FormRequest
             'interval_unit' => [
                 'nullable',
                 'string',
-                Rule::in(['hours', 'days', 'weeks', 'months']),
+                Rule::in(['hours', 'minutes']),
                 'required_with:dosing_interval',
                 Rule::prohibitedIf($this->treatment_type === 'unique'),
             ],
