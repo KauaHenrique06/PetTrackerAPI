@@ -75,7 +75,7 @@ class PetMedProceduresController extends Controller
 
             DB::commit();
 
-            return $this->successResponse($petMed, 'Procedure medications excluded with succes!', Response::HTTP_OK);
+            return $this->successResponse($petMed, 'Procedure medications excluded with success!', Response::HTTP_OK);
 
         } catch(\Exception $e) {
 
