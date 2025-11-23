@@ -9,6 +9,8 @@ use App\Traits\ApiResponser;
 use Illuminate\Http\Response; 
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class PetVaccineController extends Controller
 {
@@ -42,26 +44,26 @@ class PetVaccineController extends Controller
         }
     }
 
-    public function destroy(int $pet_id, int $pivotId)
+    public function destroy(int $petId, int $pivotId)
     {
-        $logged_user = Auth::user();
+        
+        DB::beginTransaction();
 
-        $pet = Pet::findOrFail($pet_id);
+        try {
 
-        if ($pet->user_id !== $logged_user->id) {
-            throw new AccessDeniedHttpException("You don't have permission to manage this pet!");
+            $deleted = $this->petVaccineService->destroy($petId, $pivotId);
+
+            DB::commit();
+
+            return $this->successResponse($deleted, "Vaccine deleted with success!", Response::HTTP_OK);
+
+        } catch(\Exception $e) {
+
+            DB::rollback();
+
+            return $this->errorResponse(null, $e->getMessage(), Response::HTTP_BAD_REQUEST);
+
         }
 
-        $deleted = $pet->vaccines()->newPivotStatement()
-            ->where('id', $pivotId)
-            ->where('pet_id', $pet->id)
-            ->delete();
-
-
-        if ($deleted === 0) {
-            throw new ModelNotFoundException("Vaccine record not found for this pet.");
-        }
-
-        return response()->noContent();
     }
 }

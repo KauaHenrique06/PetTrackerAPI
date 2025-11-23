@@ -32,4 +32,35 @@ class PetVaccineService{
 
         return $pet;
     }
+
+    public function destroy(int $petId, int $pivotId) {
+
+        $logged_user = Auth::user();
+
+        // Verifica se o pet pertence ao usuário logado
+        $pet = Pet::findOrFail($petId);
+        if($pet->user_id != $logged_user->id){
+            throw new AccessDeniedHttpException("You don't have permission to remove a vaccine to this pet!");
+        } 
+
+        // Busca o id na tabela pivô baseado no id passado na requisição
+       $pivot = DB::table('pet_vaccine')->where('id', $pivotId)->first();
+
+       if(!$pivot) {
+            throw new \Exception("Pivot not found!");
+       }
+
+       // Vai verificar se o registro da tabela pivô pertence ao pet indicado
+       if ($pivot->pet_id != $petId) {
+            throw new AccessDeniedHttpException("This vaccine record does not belong to this pet!");
+        }
+
+        // Deleta da tabela o item com o id passado na requisição
+        DB::table('pet_vaccine')->where('id', $pivotId)->delete();
+
+        $pet->load('vaccines');
+
+        return $pet;
+
+    }
 }

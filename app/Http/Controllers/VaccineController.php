@@ -6,9 +6,8 @@ use App\Http\Requests\CreateVaccineRequest;
 use App\Http\Requests\UpdateVaccineRequest;
 use App\Services\VaccineService;
 use App\Traits\ApiResponser;
-use Auth;
-use DB;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Symfony\Component\HttpFoundation\Response;
 
 class VaccineController extends Controller
