@@ -63,15 +63,9 @@ class PetMedProcedureService {
 
     }
 
-    public function index() {
+    public function index(Pet $pet) {
 
-        $logged_user = Auth::user();
-
-        if($logged_user == null) {
-            throw new AccessDeniedHttpException("You must be logged for view a medical procedure!");
-        } 
-
-        $petMed = PetMedicalProcedure::all();
+        $petMed = PetMedicalProcedure::where('pet_id', $pet->id)->get();
 
         return $petMed;
 

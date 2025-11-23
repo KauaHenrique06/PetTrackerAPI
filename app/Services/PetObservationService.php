@@ -38,7 +38,7 @@ class PetObservationService {
 
         $petObs = PetObservation::findOrFail($petObsId);
 
-        $petObs->update([$obsData]);
+        $petObs->update($obsData);
 
         return $petObs;
 
@@ -58,17 +58,9 @@ class PetObservationService {
 
     }
 
-    public function index() {
+    public function index(Pet $pet) { 
 
-        $logged_user = Auth::user();
-
-        if($logged_user == null) {
-            throw new AccessDeniedHttpException("You must be logged for view this observation!");
-        } 
-
-        $petObs = PetObservation::all();
-
-        return $petObs;
+        return $pet->petObservations;
 
     }
 

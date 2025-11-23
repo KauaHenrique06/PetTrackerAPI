@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\PetVaccineRequest; 
+use App\Http\Requests\PetVaccineRequest;
+use App\Models\Pet;
 use App\Services\PetVaccineService;
 use App\Traits\ApiResponser;
 use Illuminate\Http\Response; 
@@ -39,5 +40,28 @@ class PetVaccineController extends Controller
         } catch (\Exception $e) {
             return $this->errorResponse(null, $e->getMessage(), Response::HTTP_BAD_REQUEST);
         }
+    }
+
+    public function destroy(int $pet_id, int $pivotId)
+    {
+        $logged_user = Auth::user();
+
+        $pet = Pet::findOrFail($pet_id);
+
+        if ($pet->user_id !== $logged_user->id) {
+            throw new AccessDeniedHttpException("You don't have permission to manage this pet!");
+        }
+
+        $deleted = $pet->vaccines()->newPivotStatement()
+            ->where('id', $pivotId)
+            ->where('pet_id', $pet->id)
+            ->delete();
+
+
+        if ($deleted === 0) {
+            throw new ModelNotFoundException("Vaccine record not found for this pet.");
+        }
+
+        return response()->noContent();
     }
 }

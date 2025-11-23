@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StorePetMedProceduresRequest;
 use App\Http\Requests\UpdatePetMedProceduresRequest;
+use App\Models\Pet;
 use App\Services\PetMedProcedureService;
 use App\Traits\ApiResponser;
 use Illuminate\Support\Facades\DB;
@@ -86,13 +87,13 @@ class PetMedProceduresController extends Controller
 
     }
 
-    public function index() {
+    public function index(Pet $pet) {
         
         DB::beginTransaction();
 
         try {
 
-            $petMed = $this->petMedProcedure->index();
+            $petMed = $this->petMedProcedure->index($pet);
 
             DB::commit();
 

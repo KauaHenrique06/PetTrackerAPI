@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\PetObservationRequest;
 use App\Http\Requests\UpdatePetObservationRequest;
+use App\Models\Pet;
 use App\Services\PetObservationService;
 use App\Traits\ApiResponser;
 use Illuminate\Support\Facades\DB;
@@ -86,13 +87,13 @@ class PetObservationsController extends Controller
 
     }
 
-    public function index() {
+    public function index(Pet $pet) {
 
         DB::beginTransaction();
 
         try {
 
-            $petObs = $this->petObservation->index();
+            $petObs = $this->petObservation->index($pet);
 
             return $this->successResponse($petObs, 'All pets finded!', Response::HTTP_OK);
 

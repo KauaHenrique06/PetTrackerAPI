@@ -21,19 +21,19 @@ class VaccineSeeder extends Seeder
             // Vacinas para cães
             [
                 'disease_name' => 'Parvovirose',
-                'target_species' => 'Cão',
+                'target_species' => 1,
                 'doses' => 3,
                 'duration' => 12,
             ],
             [
                 'disease_name' => 'Leptospirose',
-                'target_species' => 'Cão',
+                'target_species' => 1,
                 'doses' => 2,
                 'duration' => 12,
             ],
             [
                 'disease_name' => 'Gripe Canina',
-                'target_species' => 'Cão',
+                'target_species' => 1,
                 'doses' => 2,
                 'duration' => 12,
             ],
@@ -41,19 +41,19 @@ class VaccineSeeder extends Seeder
             // Vacinas para gatos
             [
                 'disease_name' => 'Panleucopenia Felina',
-                'target_species' => 'Gato',
+                'target_species' => 2,
                 'doses' => 3,
                 'duration' => 12,
             ],
             [
                 'disease_name' => 'Clamidiose Felina',
-                'target_species' => 'Gato',
+                'target_species' => 2,
                 'doses' => 2,
                 'duration' => 12,
             ],
             [
                 'disease_name' => 'Leucemia Felina',
-                'target_species' => 'Gato',
+                'target_species' => 2,
                 'doses' => 2,
                 'duration' => 12,
             ],
@@ -61,7 +61,7 @@ class VaccineSeeder extends Seeder
             // Vacinas gerais
             [
                 'disease_name' => 'Raiva',
-                'target_species' => 'Todos',
+                'target_species' => null,
                 'doses' => 1,
                 'duration' => 36,
             ],

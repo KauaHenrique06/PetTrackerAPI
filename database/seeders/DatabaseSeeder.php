@@ -16,8 +16,8 @@ class DatabaseSeeder extends Seeder
         // User::factory(10)->create();
 
         $this->call([
-            VaccineSeeder::class,
             SpecieSeeder::class,
+            VaccineSeeder::class,
         ]);
     }
 }
