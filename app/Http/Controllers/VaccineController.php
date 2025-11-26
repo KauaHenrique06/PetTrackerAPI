@@ -102,13 +102,13 @@ class VaccineController extends Controller
 
     } 
 
-    public function index() {
+    public function index(int $specieId) {
 
         DB::beginTransaction();
 
         try {
 
-            $vaccine = $this->vaccineService->index();
+            $vaccine = $this->vaccineService->index($specieId);
 
             return $this->successResponse($vaccine, 'All vaccines found!', Response::HTTP_OK);
 

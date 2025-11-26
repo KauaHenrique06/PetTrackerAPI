@@ -57,6 +57,6 @@ class CollarsController extends Controller
     public function findPetByCollarId(Collar $collar){
         $collar = $this->collarService->findPetByCollarId($collar);
 
-        return $collar;
+        return $this->successResponse($collar, 'Pet Data finded with success');
     }
 }

@@ -11,6 +11,6 @@ Route::post('/{vaccineId}', [VaccineController::class, 'update'])->middleware('a
 
 Route::delete('/{vaccineId}', [VaccineController::class, 'destroy'])->middleware('auth:sanctum');
 
-Route::get('/', [VaccineController::class, 'index'])->middleware('auth:sanctum');
+Route::get('/list/{specieId}', [VaccineController::class, 'index']);
 
 Route::get('/{vaccineId}', [VaccineController::class, 'show'])->middleware('auth:sanctum');

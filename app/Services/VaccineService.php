@@ -70,9 +70,11 @@ class VaccineService {
         return $vaccine;
     }
 
-    public function index() {
+    public function index($specieId) {
 
-        $vaccines = Vaccine::all();
+        $vaccines = Vaccine::where('target_species', $specieId)
+            ->orWhereNull('target_species')
+            ->get();
 
         return $vaccines;
     }

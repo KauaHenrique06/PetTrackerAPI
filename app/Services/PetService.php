@@ -96,7 +96,7 @@ class PetService {
 
         $pet = Pet::findOrFail($petId);
 
-        return $pet->load('collar');
+        return $pet->load(['collar', 'user.phones', 'user.address']);
 
     }
 
