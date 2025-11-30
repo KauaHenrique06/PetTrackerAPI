@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CreatePetRequest;
 use App\Http\Requests\UpdatePetRequest;
+use App\Models\Address;
+use App\Models\Pet;
 use App\Services\PetService;
 use App\Traits\ApiResponser;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -58,7 +60,7 @@ class PetController extends Controller
 
         try {
 
-            $pet = $this->petService->update($request->validated(), $petId);
+            $pet = $this->petService->update($request->validated(), $petId, $request->file('image'));
 
             DB::commit();
 
@@ -138,5 +140,5 @@ class PetController extends Controller
 
         }
 
-    }        
+    } 
 }

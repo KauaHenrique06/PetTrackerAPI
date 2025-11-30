@@ -63,6 +63,11 @@ class Pet extends Model
         return $this->belongsTo(Specie::class);
     }
 
+    public function notifications(): HasMany
+    {
+        return $this->hasMany(Notification::class);
+    }
+
     /**
      * Relacionamentos que devem ser carregador automaticamente
      * @var array

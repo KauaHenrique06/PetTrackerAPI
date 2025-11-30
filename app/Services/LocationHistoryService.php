@@ -7,6 +7,8 @@ use App\Models\LocationHistory;
 
 class LocationHistoryService{
 
+    public function __construct(protected NotificationService $notificationService){}
+    
     public function store(Array $data, string $collar_id){
         $collar = Collar::findOrFail($collar_id);
 
@@ -16,6 +18,10 @@ class LocationHistoryService{
             'collar_id' => $collar->id,
             'pet_id' => $collar->pet_id
         ]);
+
+        if($collar->pet->status == "lost"){
+            $this->notificationService->CreateScannedNotification($collar->pet, $data['latitude'], $data['longitude']);
+        }
 
         return $location_history;
     }

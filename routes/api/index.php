@@ -54,3 +54,7 @@ Route::prefix('pet-med-procedures')->name('api.')->group(function() {
 Route::prefix('location')->name('api.')->group(function() {
     require __DIR__ . '/LocationHistory.php';
 });
+
+Route::prefix('notifications')->name('api.')->group(function() {
+    require __DIR__ . '/Notification.php';
+});

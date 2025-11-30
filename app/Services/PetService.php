@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Models\Address;
 use App\Models\Pet;
 use App\Models\User;
 use Illuminate\Http\UploadedFile;
@@ -11,6 +12,8 @@ use Symfony\Component\Finder\Exception\AccessDeniedException;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
 class PetService {
+
+    public function __construct(protected NotificationService $notificationService){}
 
     public function store(User $user, Array $petData, ?UploadedFile $imageFile) {
 
@@ -43,26 +46,47 @@ class PetService {
        
     }
 
-    public function update(Array $petData, int $petId) {
+    public function update(Array $petData, int $petId, ?UploadedFile $imageFile = null) {
 
-        $logged_user = Auth::user();
+    $logged_user = Auth::user();
+    $pet = Pet::findOrFail($petId);
 
-        // Procura o pet pelo ID
-        $pet = Pet::findOrFail($petId);
+    // Verifica permissão
+    if($pet->user_id != $logged_user->id){
+        throw new AccessDeniedHttpException("You don't have permission to update this pet data!");
+    }
 
-        // Verifica a permisão do usuario para alterar esse pet
-        if($pet->user_id != $logged_user->id){
-            throw new AccessDeniedHttpException("You don't have permission to update this pet data!");
+    // Lógica de Atualização de Imagem
+    if ($imageFile && $imageFile->isValid()) {
+        $petData['image'] = $imageFile->store('image', 'public');
+    }
+
+    // Atualiza os dados (agora incluindo o novo path da imagem, se houver)
+    $pet->fill($petData);
+
+    // Lógica de Notificações
+    if ($pet->isDirty('status')) {
+        
+        $newStatus = $pet->status;
+        $oldStatus = $pet->getOriginal('status');
+
+        if ($newStatus === 'lost') {
+            $this->sendLostNotification($pet);
         }
 
-        // Vai mudar somente os dados que forem passados na requisição
-        $pet->fill($petData);
+        if ($newStatus === 'safe') {
+            $this->sendFoundedNotification($pet);
+        }
 
-        $pet->save();
-
-        return $pet;
-
+        if ($oldStatus === 'lost' && $newStatus === 'deceased') {
+            $this->sendDeseasedNotification($pet);
+        }
     }
+
+    $pet->save();
+
+    return $pet;
+}
 
     public function destroy($petId) {
 
@@ -100,4 +124,49 @@ class PetService {
 
     }
 
+        
+    private function sendLostNotification(Pet $pet){
+        $owner_address = $pet->user->address;
+
+        $near_address = Address::nearTo($owner_address->latitude, $owner_address->longitude, 15)
+            ->where('user_id', '!=', $owner_address->user_id)
+            ->with('user')
+            ->get();
+        
+        foreach($near_address as $address){
+            $user = $address->user;
+
+            $this->notificationService->CreateLostNotification($pet, $user);
+        }
+    }
+
+    private function sendFoundedNotification(Pet $pet){
+        $owner_address = $pet->user->address;
+
+        $near_address = Address::nearTo($owner_address->latitude, $owner_address->longitude, 15)
+            ->where('user_id', '!=', $owner_address->user_id)
+            ->with('user')
+            ->get();
+        
+        foreach($near_address as $address){
+            $user = $address->user;
+
+            $this->notificationService->CreateFoundedNotification($pet, $user);
+        }
+    }
+
+    private function sendDeseasedNotification(Pet $pet){
+        $owner_address = $pet->user->address;
+
+        $near_address = Address::nearTo($owner_address->latitude, $owner_address->longitude, 15)
+            ->where('user_id', '!=', $owner_address->user_id)
+            ->with('user')
+            ->get();
+        
+        foreach($near_address as $address){
+            $user = $address->user;
+
+            $this->notificationService->CreateDeseasedNotification($pet, $user);
+        }
+    }
 }

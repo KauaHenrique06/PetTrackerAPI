@@ -32,4 +32,21 @@ class Address extends Model
 
     }
 
+    public function scopeNearTo($query, $lat, $lng, $km = 10)
+    {
+        $haversine = "(6371 * acos(
+            cos(radians(?)) 
+            * cos(radians(latitude)) 
+            * cos(radians(longitude) - radians(?)) 
+            + sin(radians(?)) 
+            * sin(radians(latitude))
+        ))";
+
+        return $query
+            ->select('*') 
+            ->selectRaw("{$haversine} as distance", [$lat, $lng, $lat]) 
+            ->having('distance', '<=', $km) 
+            ->orderBy('distance');
+    }
+
 }

@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 
 class CollarService
 {
+
     public function store(){
         return Collar::create();
     }
@@ -54,6 +55,8 @@ class CollarService
         if($collar->pet_id == null){
             throw new \Exception("This collar doesnt have an pet associated");
         }
+
+        $pet = $collar->pet;
 
         return $collar->pet->load('collar');
     }
